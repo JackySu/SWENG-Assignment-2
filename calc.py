@@ -1,6 +1,7 @@
 from typing import List
 
 
+# Shi Su updated on 30/9/2022
 operators = ['+', '-', '*', '/']
 
 # the reason why left bracket has low priority is for when it is pushed into stack
