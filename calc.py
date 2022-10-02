@@ -11,6 +11,7 @@ priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3}
 
 # split raw input into a list of nums and operators
 def split_num_operators(a: str) -> List:
+    a = a.strip().replace(" ", "")
     res = []
     n = len(a)
     i = 0
