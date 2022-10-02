@@ -15,6 +15,12 @@ class TestCases(unittest.TestCase):
         except Exception as e:
             print(e)
 
+    def test_bracket_priority(self):
+        try: 
+            self.assertEqual(main(s = "(2*((1+3)/(3/3))"), 8)
+        except Exception as e:
+            print(e)                     
+                              
 
 if __name__ == "__main__":
     unittest.main()
