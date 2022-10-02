@@ -7,9 +7,6 @@ operators = ['+', '-', '*', '/']
 # the reason why left bracket has low priority is for when it is pushed into stack
 # see !MARK 1!
 priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3}
-# '~' works as an occupant simply does nothing
-stack = ['~']
-result = []
 
 
 # split raw input into a list of nums and operators
@@ -94,4 +91,7 @@ def main():
 
 if __name__ == "__main__":
     while True:
+        # '~' works as an occupant simply does nothing
+        stack = ['~']
+        result = []
         main()
