@@ -21,14 +21,21 @@ def split_num_operators(a: str) -> List:
                 res.append(a[i])
                 break
             else:
+                end = True
                 for j in range(i + 1, n):
                     if not a[j].isdigit():
                         res.append(a[i:j])
+                        end = False
                         i = j
                         break
+                if end:
+                    res.append(a[i:])
+                    break  # reaches the end of expression
 
         elif a[i] in operators or a[i] == '(' or a[i] == ')':
             res.append(a[i])
+            i += 1
+        else:
             i += 1
 
     return res
