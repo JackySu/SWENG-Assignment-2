@@ -2,11 +2,11 @@ from typing import List
 
 
 # Shi Su updated on 30/9/2022
-operators = ['+', '-', '*', '/']
+operators = ['+', '-', '*', '/', '^']
 
 # the reason why left bracket has low priority is for when it is pushed into stack
 # see !MARK 1!
-priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3}
+priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3, '^': 4}
 
 
 # split raw input into a list of nums and operators
@@ -78,6 +78,8 @@ def operate(operator: str, a: str, b: str) -> float:
             return a / b
         except ZeroDivisionError as exc:
             raise Exception("Can not be divided by 0") from exc
+    if operator == '^':
+        return a ** b
 
 
 def calculate(result: List, stack: List) -> float:
