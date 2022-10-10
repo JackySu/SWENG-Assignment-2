@@ -27,7 +27,7 @@ class TestClass:
 
     def test_power(self):
         """
-        test if the brackets can give the expressions within higher operation priority
+        test if the power operation works properly
         """
         assert main(s = "2^3^2") == 64
         assert main(s = "2^(3^2)") == 512
