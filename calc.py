@@ -10,11 +10,15 @@ builtin_func = ['exp', 'log']
 operators.extend(builtin_func)
 # the reason why left bracket has low priority is for when it is pushed into stack
 # see !MARK 1!
+<<<<<<< HEAD
 priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3, '^': 4, 'exp': 4, 'log': 4}
 
 
 def is_num(a: str) -> bool:
     return re.match(r"(?=.)([+-]?([0-9]+)(\.([0-9]+))?)([eE][+-]?\d+)?", a) is not None
+=======
+priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3, '^': 4}
+>>>>>>> 23a276de42518aa7e865302fe704969fb5dec901
 
 
 # split raw input into a list of nums and operators

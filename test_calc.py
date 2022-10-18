@@ -25,6 +25,13 @@ class TestClass:
         """
         assert main(s = "(2*((1+3)/(3/3)))") == 8
 
+    def test_power(self):
+        """
+        test if the power operation works properly
+        """
+        assert main(s = "2^3^2") == 64
+        assert main(s = "2^(3^2)") == 512
+
 
 if __name__ == "__main__":
     pytest.main(['./'])
