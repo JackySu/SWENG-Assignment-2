@@ -30,7 +30,7 @@ def split_num_operators(a: str) -> List:
     Returns:
         List: split input into a list of numbers and operators
     """
-    a = a.strip().replace(" ", "")
+    a = "0" + a.strip().replace(" ", "")
     res = []
     for match in re.finditer(r"[+\-*\^\/\(\)]|[0-9.]+|(exp)|(log)", a):
         if match:
