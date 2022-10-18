@@ -1,12 +1,20 @@
 from typing import List
+import re
+import math
 
 
 # Shi Su updated on 30/9/2022
-operators = ['+', '-', '*', '/']
+operators = ['+', '-', '*', '/', '^']
 
+builtin_func = ['exp', 'log']
+operators.extend(builtin_func)
 # the reason why left bracket has low priority is for when it is pushed into stack
 # see !MARK 1!
-priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3}
+priority = {'~': 0, '(': 1, '+': 2, '-': 2, '*': 3, '/': 3, '^': 4, 'exp': 4, 'log': 4}
+
+
+def is_num(a: str) -> bool:
+    return re.match(r"(?=.)([+-]?([0-9]+)(\.([0-9]+))?)([eE][+-]?\d+)?", a) is not None
 
 
 # split raw input into a list of nums and operators
@@ -24,30 +32,12 @@ def split_num_operators(a: str) -> List:
     """
     a = a.strip().replace(" ", "")
     res = []
-    n = len(a)
-    i = 0
-    while i < n:
-        if a[i].isdigit():
-            if i >= n - 1:
-                res.append(a[i])
-                break
-            else:
-                end = True
-                for j in range(i + 1, n):
-                    if not a[j].isdigit():
-                        res.append(a[i:j])
-                        end = False
-                        i = j
-                        break
-                if end:
-                    res.append(a[i:])
-                    break  # reaches the end of expression
-
-        elif a[i] in operators or a[i] == '(' or a[i] == ')':
-            res.append(a[i])
-            i += 1
-        else:
-            raise Exception(f"illegal char '{a[i]}' at index {i}")
+    for match in re.finditer(r"[+\-*\^\/\(\)]|[0-9.]+|(exp)|(log)", a):
+        if match:
+            item = match.group(0)
+            if not is_num(item) and item != '(' and item != ')' and item not in operators:
+                raise Exception(f"illegal symbol {item}")
+            res.append(item)
 
     return res
 
@@ -66,7 +56,13 @@ def operate(operator: str, a: str, b: str) -> float:
     Returns:
         float: result of operation
     """
-    a, b = float(a), float(b)
+    b = float(b)
+    if operator == 'exp':
+        return math.exp(b)
+    if operator == 'log':
+        return math.log10(b)
+
+    a = float(a)
     if operator == '+':
         return a + b
     if operator == '-':
@@ -78,6 +74,8 @@ def operate(operator: str, a: str, b: str) -> float:
             return a / b
         except ZeroDivisionError as exc:
             raise Exception("Can not be divided by 0") from exc
+    if operator == '^':
+        return a ** b
 
 
 def calculate(result: List, stack: List) -> float:
@@ -90,8 +88,12 @@ def calculate(result: List, stack: List) -> float:
     Returns:
         float: final result as float number
     """
-    operand2, operand1 = result.pop(), result.pop()
+
     operator = stack.pop()
+
+    operand2 = result.pop()
+    operand1 = result.pop() if operator not in builtin_func else ""
+
     ret = operate(operator, operand1, operand2)
     result.append(ret)
     return 0
@@ -107,7 +109,7 @@ def convert_to_postfix(expressions: List, result: List, stack: List) -> None:
     """
     for i in expressions:
         # add to result if it is a number
-        if i.isdigit():
+        if is_num(i):
             result.append(i)
 
         elif i in operators:
@@ -135,7 +137,7 @@ def main(s=None) -> float:
         result = []
         expression_list = split_num_operators(input("Enter expression: ")) if s is None else split_num_operators(s)
         convert_to_postfix(expression_list, result, stack)
-        while (len(result) > 1):
+        while (len(result) > 1 or len(stack) > 1):
             calculate(result, stack)
         return result[0]
 
@@ -151,4 +153,4 @@ if __name__ == "__main__":
 
         res = main()
         if res is not None:
-            print(res)
+            print(f"{float(res):.3f}")
