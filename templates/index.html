@@ -32,20 +32,12 @@
                 Provided operators: + - * / ^ exp() log()
             </div>
         </div>
-        <div class="ui negative message" id="error" style="width: 500px;"><div class="header">Error occurred:</div><p>{{ ERROR }}</p></div>
-
+        {% if ERROR %}
+            <div class="ui negative message" id="error" style="width: 500px;"><div class="header">Error occurred:</div><p>{{ ERROR }}</p></div>
+        {% endif %}
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js"></script>
-        <script>
-            $(document).ready(function() {
-                var text = "{{ ERROR }}";
-                if (text != "None") {
-                    console.log(text);
-                    document.getElementById("error").style.visibility = "visible";
-                } else
-                    document.getElementById("error").style.visibility = "hidden";
-            })
-        </script>
+
     </body>
 </html>

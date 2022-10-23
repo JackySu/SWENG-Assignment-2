@@ -13,12 +13,12 @@ def calculate():
             res = calc.main(s=s)
             if res is not None:
                 res = f'{res:.3f}'
-                return render_template('index.html', RESULT=res, ERROR=None)
+                return render_template('index.html', RESULT=res)
         except Exception as exc:
             print(exc)
-            return render_template('index.html', RESULT='', ERROR=exc)
+            return render_template('index.html', ERROR=exc)
 
-    return render_template('index.html', RESULT='', ERROR=None)
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
