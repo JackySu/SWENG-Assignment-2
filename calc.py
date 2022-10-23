@@ -148,8 +148,10 @@ def main(s=None) -> float:
         return result[0]
 
     except IndexError as exc:
+        print(exc)
         raise Exception(f'{exc}, maybe number of operators does not match operands') from exc
     except Exception as exc:
+        print(exc)
         raise exc
 
 
