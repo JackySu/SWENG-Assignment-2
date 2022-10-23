@@ -12,7 +12,7 @@ def calculate():
         try:
             res = calc.main(s=s)
             if res is not None:
-                res = f'{res:.3f}'
+                res = f'{float(res):.3f}'
                 return render_template('index.html', RESULT=res)
         except Exception as exc:
             print(exc)

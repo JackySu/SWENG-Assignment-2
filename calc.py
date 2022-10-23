@@ -38,11 +38,12 @@ def split_num_operators(a: str) -> List:
     if a[0] == '-' or a[0] == '+':
         res.append('0')
 
-    for match in re.finditer(r"[+\-*\^\/\(\)]|[0-9.]+|(exp)|(log)", a):
+    for match in re.finditer(r"[+\-*\^\/\(\)]|(?=.)([+-]?([0-9]+)(\.([0-9]+))?)([eE][+-]?\d+)?|(exp)|(log)|.", a):
         if match:
             item = match.group(0)
+            index = match.start()
             if not is_num(item) and item != '(' and item != ')' and item not in operators:
-                raise Exception(f"illegal symbol {item}")
+                raise Exception(f"illegal symbol {item} at index {index}")
             res.append(item)
 
     return res
@@ -148,10 +149,8 @@ def main(s=None) -> float:
         return result[0]
 
     except IndexError as exc:
-        print(exc)
         raise Exception(f'{exc}, maybe number of operators does not match operands') from exc
     except Exception as exc:
-        print(exc)
         raise exc
 
 
