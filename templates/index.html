@@ -7,24 +7,45 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div>
-            <form method="POST">
-                <h4 class="ui header">Calculator</h4>
-                <div class="ui action input">
-                    <input type="text" name="expr" placeholdper="Enter your expression" />
-                    <button class="ui teal right labeled icon button">
-                        <i class="search icon"></i>
-                        Calculate
-                    </button>
+
+        <div class="html ui top attached segment" style="width: 500px; text-align: center;">
+            <div class="ui attached message">
+                <div class="header">
+                    Calculator
                 </div>
-                <br>
-                <div class="ui visible message">
-                    <p>Result: {{ RESULT }}</p>
+                <p>Fill out the expression below and press calculate</p>
+            </div>
+            <form method="POST" class="ui form attached fluid segment">
+                <div class="field">
+                    <div class="ui action input">
+                        <input type="text" name="expr" placeholdper="Your expression here" />
+                        <button class="ui yellow right labeled icon button">
+                            <i class="write icon"></i>
+                            Calculate
+                        </button>
+                    </div>
                 </div>
+                <div class="ui visible message" id="result"><p>Result: {{ RESULT }}</p></div>
             </form>
+            <div class="ui bottom attached warning message">
+                <i class="icon help"></i>
+                Provided operators: + - * / ^ exp() log()
+            </div>
         </div>
+        <div class="ui negative message" id="error" style="width: 500px;"><div class="header">Error occurred:</div><p>{{ ERROR }}</p></div>
+
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js"></script>
+        <script>
+            $(document).ready(function() {
+                var text = "{{ ERROR }}";
+                if (text != "None") {
+                    console.log(text);
+                    document.getElementById("error").style.visibility = "visible";
+                } else
+                    document.getElementById("error").style.visibility = "hidden";
+            })
+        </script>
     </body>
 </html>

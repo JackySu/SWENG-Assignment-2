@@ -147,16 +147,17 @@ def main(s=None) -> float:
             calculate(result, stack)
         return result[0]
 
-    except IndexError:
-        print("Error in expression, please re-input")
+    except IndexError as exc:
+        raise Exception(f'{exc}, maybe number of operators does not match operands') from exc
     except Exception as exc:
-        print(exc)
-    return None
+        raise exc
 
 
 if __name__ == "__main__":
     while True:
-
-        res = main()
-        if res is not None:
-            print(f"{float(res):.3f}")
+        try:
+            res = main()
+            if res is not None:
+                print(f"Result: {float(res):.3f}")
+        except Exception as e:
+            print(e)
