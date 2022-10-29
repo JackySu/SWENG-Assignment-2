@@ -35,10 +35,10 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:webapp
       
-    - name: Image digest
+    - name: Webapp Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
     
-        - name: Build and push
+    - name: Build and push
       id: docker_build
       uses: docker/build-push-action@v2
       with:
@@ -47,5 +47,5 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:CLI
       
-    - name: Image digest
+    - name: CLI Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
