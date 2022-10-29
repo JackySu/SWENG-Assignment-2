@@ -160,5 +160,5 @@ if __name__ == "__main__":
             res = main()
             if res is not None:
                 print(f"Result: {float(res):.3f}")
-        except Exception as e:
-            print(e)
+        except Exception as exc:
+            print(exc)
