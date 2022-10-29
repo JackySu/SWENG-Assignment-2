@@ -31,9 +31,21 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: ./Dockerfile
+        file: ./DockerfileWebapp
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:latest
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:webapp
+      
+    - name: Image digest
+      run: echo ${{ steps.docker_build.outputs.digest }}
+    
+        - name: Build and push
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        context: ./
+        file: ./DockerfileCLI
+        push: true
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:CLI
       
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}
