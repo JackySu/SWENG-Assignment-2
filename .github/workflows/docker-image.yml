@@ -31,7 +31,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: ./DockerfileWebapp
+        file: ./Dockerfile.Webapp
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:webapp
       
@@ -43,7 +43,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: ./
-        file: ./DockerfileCLI
+        file: ./Dockerfile.CLI
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/calculator:CLI
       
